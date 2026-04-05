@@ -1,3 +1,11 @@
+## v0.1.9
+
+[v0.1.8...v0.1.9](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.8...v0.1.9)
+
+### :wrench: Chores
+
+- **package**: add repository, homepage, and bugs metadata to package manifests - By [Jannchie](mailto:jannchie@gmail.com) in [1d4588a](https://github.com/Jannchie/preferred-markdown-stream/commit/1d4588a)
+
 ## v0.1.8
 
 [v0.1.7...v0.1.8](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.7...v0.1.8)
