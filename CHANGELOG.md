@@ -1,3 +1,11 @@
+## v0.1.8
+
+[v0.1.7...v0.1.8](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.7...v0.1.8)
+
+### :construction_worker: CI
+
+- add CI workflow and improve release workflow inputs && fix vitest alias for vue package - By [Jannchie](mailto:jannchie@gmail.com) in [f253d7b](https://github.com/Jannchie/preferred-markdown-stream/commit/f253d7b)
+
 ## v0.1.7
 
 [v0.1.6...v0.1.7](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.6...v0.1.7)
