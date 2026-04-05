@@ -1,3 +1,11 @@
+## v0.1.3
+
+[v0.1.2...v0.1.3](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.2...v0.1.3)
+
+### :construction_worker: CI
+
+- **release-workflow**: use node 22 in release workflow - By [Jannchie](mailto:jannchie@gmail.com) in [dd4de6b](https://github.com/Jannchie/preferred-markdown-stream/commit/dd4de6b)
+
 ## v0.1.2
 
 [v0.1.1...v0.1.2](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.1...v0.1.2)
