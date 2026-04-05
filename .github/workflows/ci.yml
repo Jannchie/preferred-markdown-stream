@@ -1,27 +1,20 @@
-name: Release
+name: CI
 
 on:
-  workflow_dispatch:
-    inputs:
-      dry_run:
-        description: Run the release workflow without publishing packages
-        required: false
-        default: true
-        type: boolean
+  pull_request:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
 
 concurrency:
-  group: release-${{ github.ref }}
-  cancel-in-progress: false
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  release:
+  validate:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write
 
     steps:
       - name: Checkout
@@ -62,10 +55,5 @@ jobs:
       - name: Build docs
         run: pnpm docs:build
 
-      - name: Publish packages
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then
-            DRY_RUN=1 pnpm release:ci
-          else
-            pnpm release:ci
-          fi
+      - name: Release dry run
+        run: DRY_RUN=1 pnpm release:ci
