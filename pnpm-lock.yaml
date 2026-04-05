@@ -55,7 +55,7 @@ importers:
   packages/vue:
     dependencies:
       '@preferred-markdown-stream/core':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../core
       '@shikijs/markdown-it':
         specifier: ^4.0.2

@@ -10,6 +10,7 @@
     "docs:preview": "vitepress preview docs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "release:ci": "node ./scripts/release-packages.mjs",
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck"
   },
