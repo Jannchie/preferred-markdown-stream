@@ -18,6 +18,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./styles.css": "./dist/styles.css",
     "./streaming-text": {
       "types": "./dist/streamingText.d.ts",
       "import": "./dist/streamingText.js"
@@ -35,7 +36,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc -p ./tsconfig.build.json",
+    "build": "tsc -p ./tsconfig.build.json && node ./scripts/copy-assets.mjs",
     "test": "vitest run --config ./vitest.config.ts",
     "typecheck": "tsc -p ./tsconfig.json"
   },

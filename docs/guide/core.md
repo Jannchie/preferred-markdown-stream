@@ -11,9 +11,9 @@ pnpm add @preferred-markdown-stream/core
 ## Exports
 
 - `splitContent(message)`
-- `addFadeInClassToTreeNodes(children, loading, fadeInClass?)`
-- `streamingTextStyles`
+- `addFadeInClassToTreeNodes(children, loading, options?)`
 - `StreamingTextNode`
+- `FadeInClassOptions`
 
 ## `splitContent()`
 
@@ -51,6 +51,7 @@ Use this helper when you already have a tree of render nodes and want to attach 
 
 ```ts
 import { addFadeInClassToTreeNodes } from '@preferred-markdown-stream/core'
+import '@preferred-markdown-stream/core/styles.css'
 
 const tree = [
   {
@@ -61,21 +62,35 @@ const tree = [
   },
 ]
 
-addFadeInClassToTreeNodes(tree, true, 'fade-in')
+addFadeInClassToTreeNodes(tree, true)
 ```
 
-## `streamingTextStyles`
-
-`streamingTextStyles` exposes a CSS string that you can inject into your app when you want a default fade-in animation style.
-
-### Example
+### Custom Class Name
 
 ```ts
-import { streamingTextStyles } from '@preferred-markdown-stream/core'
+import { addFadeInClassToTreeNodes } from '@preferred-markdown-stream/core'
 
-const style = document.createElement('style')
-style.textContent = streamingTextStyles
-document.head.append(style)
+addFadeInClassToTreeNodes(tree, true, {
+  className: 'message-appear',
+})
+```
+
+Then define the matching CSS in your app:
+
+```css
+.message-appear {
+  opacity: 0;
+  animation: message-appear 180ms ease forwards;
+}
+
+@keyframes message-appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 ```
 
 ## `StreamingTextNode`
@@ -86,3 +101,18 @@ document.head.append(style)
 - `props`
 
 Use it when you need TypeScript support around custom node transformations.
+
+## Default CSS Customization
+
+The default stylesheet lives at `@preferred-markdown-stream/core/styles.css`.
+
+It supports CSS variables for common animation tuning:
+
+```css
+.chat-message {
+  --preferred-markdown-stream-animation-duration: 180ms;
+  --preferred-markdown-stream-animation-timing-function: linear;
+}
+```
+
+If you need a different class name or keyframes name, define your own CSS and pass `className` to the helper.

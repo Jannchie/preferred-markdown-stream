@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { splitContent } from '@preferred-markdown-stream/core'
 import {
   createStreamingMarkdownVNodes,
   createVNodeRendererComponent,
+  splitContent,
 } from '@preferred-markdown-stream/vue'
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 

@@ -14,13 +14,13 @@ Returns the visible portion of a streaming Markdown string.
 - removes incomplete trailing fragments,
 - strips incomplete links, images, tables, inline code, and display math.
 
-## `addFadeInClassToTreeNodes(children, loading, fadeInClass?)`
+## `addFadeInClassToTreeNodes(children, loading, options?)`
 
 ```ts
 function addFadeInClassToTreeNodes<T extends StreamingTextNode>(
   children: T[],
   loading: boolean,
-  fadeInClass?: string,
+  options?: string | FadeInClassOptions,
 ): T[]
 ```
 
@@ -32,15 +32,32 @@ Adds a CSS class to text-backed leaves in a generic render tree while loading.
 | --- | --- | --- |
 | `children` | `T[]` | A generic tree of nodes with `children` and optional `props`. |
 | `loading` | `boolean` | Whether fade-in classes should be applied. |
-| `fadeInClass` | `string` | Optional class name. Defaults to `fade-in`. |
+| `options` | `string \| FadeInClassOptions` | Optional fade-in class config. Defaults to `preferred-markdown-stream-fade-in`. |
 
-## `streamingTextStyles`
+## `FadeInClassOptions`
 
 ```ts
-const streamingTextStyles: string
+interface FadeInClassOptions {
+  className?: string
+}
 ```
 
-Default CSS used for fade-in behavior.
+Controls which CSS class is attached while `loading` is `true`.
+
+## `styles.css`
+
+Import the default animation styles from the CSS subpath:
+
+```ts
+import '@preferred-markdown-stream/core/styles.css'
+```
+
+The stylesheet supports these CSS variables:
+
+- `--preferred-markdown-stream-animation-name`
+- `--preferred-markdown-stream-animation-duration`
+- `--preferred-markdown-stream-animation-timing-function`
+- `--preferred-markdown-stream-animation-fill-mode`
 
 ## `StreamingTextNode`
 

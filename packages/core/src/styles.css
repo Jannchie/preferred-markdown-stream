@@ -1,0 +1,29 @@
+.preferred-markdown-stream-fade-in {
+  opacity: 0;
+  animation-name: var(
+    --preferred-markdown-stream-animation-name,
+    preferred-markdown-stream-fade-in
+  );
+  animation-duration: var(
+    --preferred-markdown-stream-animation-duration,
+    1s
+  );
+  animation-timing-function: var(
+    --preferred-markdown-stream-animation-timing-function,
+    ease
+  );
+  animation-fill-mode: var(
+    --preferred-markdown-stream-animation-fill-mode,
+    forwards
+  );
+}
+
+@keyframes preferred-markdown-stream-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

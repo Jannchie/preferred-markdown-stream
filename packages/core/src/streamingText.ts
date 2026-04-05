@@ -7,6 +7,7 @@ const TABLE_SEPARATOR_REGEXP = /^\|[\s:|-]+\|$/
 const FENCE_DELIMITER_REGEXP = /^(`{3,}|~{3,})/gm
 const INLINE_CODE_BACKTICK_REGEXP = /(?<!`)`(?!`)/g
 const COMPLETE_INLINE_MARKUP_REGEXP = /^!?\[[^\]]*\]\([^)]*\)/
+const DEFAULT_FADE_IN_CLASS_NAME = 'preferred-markdown-stream-fade-in'
 
 export interface StreamingTextNode {
   children?: string | StreamingTextNode[] | unknown
@@ -14,6 +15,20 @@ export interface StreamingTextNode {
     class?: string
     [key: string]: unknown
   } | null
+}
+
+export interface FadeInClassOptions {
+  className?: string
+}
+
+function resolveFadeInClassName(
+  options?: string | FadeInClassOptions,
+): string {
+  if (typeof options === 'string') {
+    return options
+  }
+
+  return options?.className ?? DEFAULT_FADE_IN_CLASS_NAME
 }
 
 /**
@@ -227,10 +242,10 @@ export function splitContent(msg: string): string {
 /**
  * Add a fade-in class to string-backed nodes in a generic tree structure.
  */
-export function addFadeInClassToTreeNodes<T extends StreamingTextNode>(
+function addFadeInClassToTreeNodesWithClassName<T extends StreamingTextNode>(
   childrenRaw: T[],
   loading: boolean,
-  fadeInClass = 'fade-in',
+  className: string,
 ): T[] {
   // eslint-disable-next-line unicorn/no-magic-array-flat-depth
   const children = childrenRaw.flat(20) as T[]
@@ -249,7 +264,7 @@ export function addFadeInClassToTreeNodes<T extends StreamingTextNode>(
         const existingClass = typeof child.props!.class === 'string'
           ? child.props!.class
           : ''
-        child.props!.class = `${existingClass} ${fadeInClass}`.trim()
+        child.props!.class = `${existingClass} ${className}`.trim()
       }
     }
     if (
@@ -257,36 +272,24 @@ export function addFadeInClassToTreeNodes<T extends StreamingTextNode>(
       && Array.isArray(child.children)
       && child.children.length > 0
     ) {
-      addFadeInClassToTreeNodes(child.children as T[], loading, fadeInClass)
+      addFadeInClassToTreeNodesWithClassName(
+        child.children as T[],
+        loading,
+        className,
+      )
     }
   }
   return children
 }
 
 /**
- * CSS styles for streaming text animation
- * Can be used in your global styles or component styles
+ * Add a fade-in class to string-backed nodes in a generic tree structure.
  */
-export const streamingTextStyles = `
-.fade-in {
-  opacity: 0;
-  animation: fadeIn 1s forwards;
+export function addFadeInClassToTreeNodes<T extends StreamingTextNode>(
+  childrenRaw: T[],
+  loading: boolean,
+  options?: string | FadeInClassOptions,
+): T[] {
+  const className = resolveFadeInClassName(options)
+  return addFadeInClassToTreeNodesWithClassName(childrenRaw, loading, className)
 }
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.streaming-text-wrapper {
-  position: relative;
-}
-
-.streaming-text-wrapper.streaming {
-  /* Additional styling for streaming state */
-}
-`

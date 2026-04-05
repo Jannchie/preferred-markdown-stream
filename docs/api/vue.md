@@ -1,16 +1,32 @@
 # Vue API
 
-## `addFadeInToVNodes(children, loading, fadeInClass?)`
+## `splitContent(message)`
+
+```ts
+function splitContent(message: string): string
+```
+
+Re-export of the core streaming text splitter for Vue-first consumers that only install `@preferred-markdown-stream/vue`.
+
+## `addFadeInToVNodes(children, loading, options?)`
 
 ```ts
 function addFadeInToVNodes(
   children: VNode[],
   loading: boolean,
-  fadeInClass?: string,
+  options?: string | FadeInClassOptions,
 ): VNode[]
 ```
 
 Vue adapter around the generic fade-in tree helper from `@preferred-markdown-stream/core`.
+
+## `styles.css`
+
+Import the default animation styles from the Vue package directly:
+
+```ts
+import '@preferred-markdown-stream/vue/styles.css'
+```
 
 ## `createStreamingMarkdownVNodes(content, loading)`
 

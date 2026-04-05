@@ -33,8 +33,8 @@ describe('@preferred-markdown-stream/core', () => {
     const nestedLeaf = result[0].children as any[]
     const deepestLeaf = nestedLeaf[1].children as any[]
 
-    expect(nestedLeaf[0].props.class).toBe('leaf fade-in')
-    expect(deepestLeaf[0].props.class).toBe('fade-in')
+    expect(nestedLeaf[0].props.class).toBe('leaf preferred-markdown-stream-fade-in')
+    expect(deepestLeaf[0].props.class).toBe('preferred-markdown-stream-fade-in')
   })
 
   it('strips incomplete table rows without separator', () => {
@@ -104,5 +104,14 @@ describe('@preferred-markdown-stream/core', () => {
     const tree = [{ props: { class: 'leaf' }, children: 'Hello' }]
     const result = addFadeInClassToTreeNodes(tree, false)
     expect(result[0].props?.class).toBe('leaf')
+  })
+
+  it('supports configuring the applied fade-in class name', () => {
+    const tree = [{ props: { class: 'leaf' }, children: 'Hello' }]
+    const result = addFadeInClassToTreeNodes(tree, true, {
+      className: 'message-appear',
+    })
+
+    expect(result[0].props?.class).toBe('leaf message-appear')
   })
 })

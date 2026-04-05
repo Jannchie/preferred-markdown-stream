@@ -6,6 +6,12 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
+      '@preferred-markdown-stream/core/styles.css': fileURLToPath(
+        new URL('../core/src/styles.css', import.meta.url),
+      ),
+      '@preferred-markdown-stream/vue/styles.css': fileURLToPath(
+        new URL('../vue/src/styles.css', import.meta.url),
+      ),
       '@preferred-markdown-stream/core': fileURLToPath(
         new URL('../core/src/index.ts', import.meta.url),
       ),

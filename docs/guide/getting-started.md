@@ -44,6 +44,7 @@ import {
 
 ```ts
 import { splitContent } from '@preferred-markdown-stream/core'
+import '@preferred-markdown-stream/core/styles.css'
 
 const partial = 'Hello world. This sentence is still typ'
 const visible = splitContent(partial)
@@ -55,15 +56,18 @@ console.log(visible)
 ### Vue
 
 ```ts
+import '@preferred-markdown-stream/vue/styles.css'
 import {
   createStreamingMarkdownVNodes,
   createVNodeRendererComponent,
+  splitContent,
 } from '@preferred-markdown-stream/vue'
 import { ref } from 'vue'
 
 const content = ref('')
 const loading = ref(true)
 
+const preview = splitContent(content.value)
 const { contentVNodes } = createStreamingMarkdownVNodes(content, loading)
 export const StreamingMarkdown = createVNodeRendererComponent(contentVNodes)
 ```
