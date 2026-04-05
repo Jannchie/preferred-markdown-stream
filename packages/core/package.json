@@ -3,6 +3,15 @@
   "type": "module",
   "version": "0.1.8",
   "private": false,
+  "homepage": "https://github.com/Jannchie/preferred-markdown-stream/tree/main/packages/core#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jannchie/preferred-markdown-stream.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/Jannchie/preferred-markdown-stream/issues"
+  },
   "sideEffects": false,
   "exports": {
     ".": {

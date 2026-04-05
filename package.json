@@ -3,6 +3,14 @@
   "version": "0.1.8",
   "private": true,
   "packageManager": "pnpm@10.0.0",
+  "homepage": "https://github.com/Jannchie/preferred-markdown-stream#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jannchie/preferred-markdown-stream.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Jannchie/preferred-markdown-stream/issues"
+  },
   "scripts": {
     "build": "pnpm -r build",
     "dev:playground": "pnpm --filter \"@preferred-markdown-stream/playground\" dev",
