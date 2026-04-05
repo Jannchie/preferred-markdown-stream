@@ -9,6 +9,9 @@ export {
   md,
 } from './runtime'
 export {
+  setCodeBlockComponent,
+} from './render'
+export {
   bindStreamingMarkdownTrigger,
   createReasoningMarkdownVNodes,
   createStreamingMarkdownVNodes,

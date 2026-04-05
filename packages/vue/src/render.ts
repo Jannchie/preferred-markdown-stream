@@ -5,11 +5,10 @@ import { escapeHtml, unescapeAll } from 'markdown-it/lib/common/utils.mjs'
 import {
   Comment,
   createVNode,
-  defineComponent,
   Fragment,
   h,
-  ref,
   Text,
+
 } from 'vue'
 
 export interface Plugin<Ctx = any> {
@@ -33,7 +32,7 @@ const attrNameReg = /^[a-z_:][\w:.-]*$/i
 const attrEventReg = /^on/i
 const CODE_INFO_SPLIT_REGEXP = /(\s+)/g
 const STREAMING_TEXT_SPLIT_REGEXP
-  = /(?<=[。？！；、，\n])|(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=[.?!`])/g
+  = /(?<=[。？！；、，,;\n])|(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=[.?!`])/g
 const defaultRules = {} as any
 
 function validateAttrName(name: string) {
@@ -137,84 +136,21 @@ defaultRules.code_block = function (
   ])
 }
 
-const CodeBlockWrapper = defineComponent({
-  name: 'CodeBlockWrapper',
-  props: {
-    language: {
-      type: String,
-      default: '',
-    },
-    content: {
-      type: String,
-      required: true,
-    },
-    preAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
-  setup(props) {
-    const copied = ref(false)
+/**
+ * Custom code block component slot.
+ * When set via `setCodeBlockComponent()`, the fence rule delegates rendering
+ * to this component instead of the default `pre > code`.
+ *
+ * The component receives props: `{ language: string, content: string, preAttrs: Record<string, any> }`
+ * where `content` is the highlighted HTML string.
+ */
+let customCodeBlockComponent: any = null
 
-    const copyCode = () => {
-      // 创建一个临时的元素来提取文本内容
-      const tempElement = document.createElement('div')
-      tempElement.innerHTML = props.content // 设置 HTML 内容
-      const { textContent } = tempElement
-      navigator.clipboard.writeText(textContent ?? '').then(() => {
-        copied.value = true
-        setTimeout(() => {
-          copied.value = false
-        }, 2000)
-      })
-    }
+export function setCodeBlockComponent(component: any) {
+  customCodeBlockComponent = component
+}
 
-    return { copyCode, copied }
-  },
-  render() {
-    return h(
-      'div',
-      {
-        class:
-          'code-block-wrapper border rounded-xl my-4 overflow-hidden max-w-[calc(100vw-24px)]',
-      },
-      [
-        h(
-          'div',
-          {
-            class:
-              'code-block-toolbar bg-neutral-100 border-b px-4 text-neutral-4 py-2 flex justify-between items-center dark:bg-neutral-800 dark:border-neutral-700',
-          },
-          [
-            h(
-              'span',
-              { class: 'code-language text-sm uppercase font-mono' },
-              this.language || 'text',
-            ),
-            h(
-              'button',
-              {
-                class:
-                  'copy-button text-sm w-6 h-6 rounded hover:bg-neutral-7 leading-0',
-                onClick: this.copyCode,
-              },
-              this.copied
-                ? h('i', { class: 'i-tabler-check' })
-                : h('i', { class: 'i-tabler-copy' }),
-            ),
-          ],
-        ),
-        h('div', { class: 'code-content' }, [
-          h('pre', this.preAttrs, [
-            createVNode('code', { innerHTML: this.content }, []),
-          ]),
-        ]),
-      ],
-    )
-  },
-})
-
-// Modified fence rule
+// fence rule
 defaultRules.fence = function (
   tokens: Token[],
   idx: number,
@@ -242,7 +178,7 @@ defaultRules.fence = function (
     : escapeHtml(token.content)
 
   const buildVNode = (attrs: any) => {
-    const preAttrs = {
+    const preAttrs: Record<string, any> = {
       'data-info': info,
       'data-lang': langName,
       [DOM_ATTR_NAME.SOURCE_LINE_START]: attrs[DOM_ATTR_NAME.SOURCE_LINE_START],
@@ -252,12 +188,18 @@ defaultRules.fence = function (
     delete attrs[DOM_ATTR_NAME.SOURCE_LINE_START]
     delete attrs[DOM_ATTR_NAME.SOURCE_LINE_END]
 
-    // Use our wrapper component instead of directly returning pre/code
-    return h(CodeBlockWrapper, {
-      language: langName,
-      content: highlighted,
-      preAttrs,
-    })
+    if (customCodeBlockComponent) {
+      return h(customCodeBlockComponent, {
+        language: langName,
+        content: highlighted,
+        preAttrs,
+      })
+    }
+
+    // Default: simple pre > code
+    return h('pre', preAttrs, [
+      createVNode('code', { innerHTML: highlighted }, []),
+    ])
   }
 
   // If language exists, inject class gently, without modifying original token.

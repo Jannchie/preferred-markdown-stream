@@ -1,6 +1,6 @@
 const SENTENCE_SPLIT_REGEXP
-  = /(?<=[。？！；、，\n])|(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=[.?!`])/g
-const SENTENCE_END_REGEXP = /[.?!。？！；，、`\n]$/
+  = /(?<=[。？！；、，,;\n])|(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=[.?!`])/g
+const SENTENCE_END_REGEXP = /[.?!。？！；，、,;`\n]$/
 const ORDERED_LIST_PREFIX_REGEXP = /^\d+\./
 const TABLE_ROW_REGEXP = /^\|.+\|$/
 const TABLE_SEPARATOR_REGEXP = /^\|[\s:|-]+\|$/
