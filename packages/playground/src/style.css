@@ -39,6 +39,11 @@ html, body, #app {
   margin: 0;
 }
 
+html {
+  color-scheme: dark;
+  background: var(--bg-deep);
+}
+
 body {
   background: var(--bg-deep);
   color: var(--text-primary);

@@ -1,11 +1,11 @@
 import { copyFile, mkdir } from 'node:fs/promises'
-import { dirname, resolve } from 'node:path'
+import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const currentDir = dirname(fileURLToPath(import.meta.url))
-const packageDir = resolve(currentDir, '..')
-const sourceFile = resolve(packageDir, 'src/styles.css')
-const targetFile = resolve(packageDir, 'dist/styles.css')
+const currentDir = path.dirname(fileURLToPath(import.meta.url))
+const packageDir = path.resolve(currentDir, '..')
+const sourceFile = path.resolve(packageDir, 'src/styles.css')
+const targetFile = path.resolve(packageDir, 'dist/styles.css')
 
-await mkdir(dirname(targetFile), { recursive: true })
+await mkdir(path.dirname(targetFile), { recursive: true })
 await copyFile(sourceFile, targetFile)

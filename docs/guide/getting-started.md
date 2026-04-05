@@ -56,13 +56,13 @@ console.log(visible)
 ### Vue
 
 ```ts
-import '@preferred-markdown-stream/vue/styles.css'
 import {
   createStreamingMarkdownVNodes,
   createVNodeRendererComponent,
   splitContent,
 } from '@preferred-markdown-stream/vue'
 import { ref } from 'vue'
+import '@preferred-markdown-stream/vue/styles.css'
 
 const content = ref('')
 const loading = ref(true)

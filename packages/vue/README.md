@@ -11,12 +11,12 @@ pnpm add @preferred-markdown-stream/vue vue
 ## Usage
 
 ```ts
-import '@preferred-markdown-stream/vue/styles.css'
 import {
   createStreamingMarkdownVNodes,
   createVNodeRendererComponent,
   splitContent,
 } from '@preferred-markdown-stream/vue'
+import '@preferred-markdown-stream/vue/styles.css'
 ```
 
 ## Public API
