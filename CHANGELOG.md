@@ -1,3 +1,11 @@
+## v0.1.5
+
+[v0.1.4...v0.1.5](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.4...v0.1.5)
+
+### :wrench: Chores
+
+- **eslint**: add vue parser and plugins to eslint config - By [Jannchie](mailto:jannchie@gmail.com) in [c06cf72](https://github.com/Jannchie/preferred-markdown-stream/commit/c06cf72)
+
 ## v0.1.4
 
 [v0.1.3...v0.1.4](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.3...v0.1.4)
