@@ -1,3 +1,11 @@
+## v0.2.0
+
+[v0.1.9...v0.2.0](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.9...v0.2.0)
+
+### :sparkles: Features
+
+- **core**: export configurable fade-in class and publish styles.css - By [Jannchie](mailto:jannchie@gmail.com) in [54d4d81](https://github.com/Jannchie/preferred-markdown-stream/commit/54d4d81)
+
 ## v0.1.9
 
 [v0.1.8...v0.1.9](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.8...v0.1.9)

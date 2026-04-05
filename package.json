@@ -1,6 +1,6 @@
 {
   "name": "preferred-markdown-stream",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "private": true,
   "packageManager": "pnpm@10.0.0",
   "homepage": "https://github.com/Jannchie/preferred-markdown-stream#readme",

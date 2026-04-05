@@ -1,7 +1,7 @@
 {
   "name": "@preferred-markdown-stream/core",
   "type": "module",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "private": false,
   "homepage": "https://github.com/Jannchie/preferred-markdown-stream/tree/main/packages/core#readme",
   "repository": {
