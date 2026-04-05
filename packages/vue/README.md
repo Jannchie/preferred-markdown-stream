@@ -19,6 +19,8 @@ import {
 import '@preferred-markdown-stream/vue/styles.css'
 ```
 
+`createStreamingMarkdownVNodes()` returns `formattedContent`, `contentFinal`, `contentVNodes`, and `debouncedLoading`.
+
 ## Public API
 
 - `addFadeInToVNodes(children, loading, options?)`
@@ -34,3 +36,6 @@ import '@preferred-markdown-stream/vue/styles.css'
 - `runtime.ts` stays internal and owns the Markdown renderer instance plus lazy capability loading.
 - `useStreamingMarkdown.ts` contains the repeated Vue wiring that was previously duplicated inside app components.
 - Default animation styles are published via `@preferred-markdown-stream/vue/styles.css`.
+- KaTeX and Shiki are loaded on demand when matching content is detected.
+- The fade-in state is intentionally delayed for about 1 second after loading completes so the last rendered batch can still animate.
+- Raw HTML rendering uses browser DOM APIs internally, so client-side rendering is the safest path when your Markdown may contain raw HTML.

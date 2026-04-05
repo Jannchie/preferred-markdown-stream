@@ -25,6 +25,11 @@ import '@preferred-markdown-stream/core/styles.css'
 - `StreamingTextNode`
 - `FadeInClassOptions`
 
+## Behavior Notes
+
+- Incomplete trailing sentences, links, images, tables, inline code, and unclosed `$$` display math are hidden until they become safe to render.
+- Unfinished fenced code blocks are kept visible so code can continue streaming progressively.
+
 ## Notes
 
 - The current implementation keeps the existing behavior from the app.

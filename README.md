@@ -2,6 +2,14 @@
 
 A standalone pnpm monorepo for streaming Markdown packages.
 
+The project provides:
+
+- `@preferred-markdown-stream/core` for streaming-safe content splitting and generic fade-in helpers
+- `@preferred-markdown-stream/vue` for Vue VNode rendering, Markdown-It integration, and lazy KaTeX/Shiki loading
+- `@preferred-markdown-stream/playground` for local manual testing
+
+Documentation lives in the `docs/` site and can be previewed locally with `pnpm docs:dev`.
+
 ## Packages
 
 - `@preferred-markdown-stream/core`
@@ -12,7 +20,12 @@ A standalone pnpm monorepo for streaming Markdown packages.
 
 - `pnpm build`
 - `pnpm dev:playground`
+- `pnpm docs:dev`
 - `pnpm docs:build`
+- `pnpm docs:preview`
+- `pnpm lint`
+- `pnpm lint:fix`
+- `pnpm release:ci`
 - `pnpm test`
 - `pnpm typecheck`
 

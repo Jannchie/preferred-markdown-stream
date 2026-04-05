@@ -7,6 +7,7 @@ Instead of rendering every partial fragment immediately, the packages help you:
 - keep complete sentences visible,
 - avoid dangling links and tables,
 - delay incomplete inline code and display math,
+- keep unfinished fenced code blocks visible so code can stream progressively,
 - add fade-in classes to newly rendered content.
 
 ## Choose a Package
@@ -14,6 +15,8 @@ Instead of rendering every partial fragment immediately, the packages help you:
 Use `@preferred-markdown-stream/core` if you want the streaming logic without Vue.
 
 Use `@preferred-markdown-stream/vue` if your UI is built with Vue and you want a ready-to-use renderer pipeline.
+
+The Vue package re-exports `splitContent()` from the core package, so Vue-first consumers can stay on a single package import path.
 
 ## Install
 

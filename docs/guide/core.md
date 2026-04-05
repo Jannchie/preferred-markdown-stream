@@ -28,6 +28,8 @@ It currently handles:
 - incomplete markdown tables without a separator row,
 - unclosed display math blocks such as `$$ ...`.
 
+It intentionally keeps unfinished fenced code blocks visible, because Markdown-It can still render them as code while the stream is in progress.
+
 ### Example
 
 ```ts

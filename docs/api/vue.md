@@ -44,6 +44,18 @@ function createStreamingMarkdownVNodes(
 
 Primary helper for streaming Markdown rendering in Vue.
 
+### Returned state
+
+- `formattedContent`: the stable prefix produced by `splitContent(content.value)`
+- `contentFinal`: `formattedContent` while loading, otherwise the full `content.value`
+- `contentVNodes`: rendered VNodes for the current visible content
+- `debouncedLoading`: a delayed loading ref that stays `true` briefly after `loading` becomes `false`
+
+### Notes
+
+- KaTeX and Shiki are lazy-loaded when the content suggests math or code rendering is needed.
+- The delayed `debouncedLoading` state currently waits about 1 second before turning off fade-in classes.
+
 ## `createVNodeRendererComponent(vnodes)`
 
 ```ts
@@ -61,3 +73,9 @@ function setCodeBlockComponent(component: any): void
 ```
 
 Overrides fenced code block rendering with a custom Vue component.
+
+The component receives these props:
+
+- `language: string`
+- `content: string`
+- `preAttrs: Record<string, any>`
