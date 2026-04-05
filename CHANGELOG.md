@@ -1,3 +1,11 @@
+## v0.1.7
+
+[v0.1.6...v0.1.7](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.6...v0.1.7)
+
+### :wrench: Chores
+
+- **deps**: add @types/node devDependency and update pnpm lock - By [Jannchie](mailto:jannchie@gmail.com) in [fbee085](https://github.com/Jannchie/preferred-markdown-stream/commit/fbee085)
+
 ## v0.1.6
 
 [v0.1.5...v0.1.6](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.5...v0.1.6)
