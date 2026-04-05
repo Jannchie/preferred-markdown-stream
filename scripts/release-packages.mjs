@@ -1,5 +1,6 @@
 import { execFileSync } from 'node:child_process'
-import { readFileSync } from 'node:fs'
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs'
+import os from 'node:os'
 import path from 'node:path'
 
 const rootDir = process.cwd()
@@ -47,23 +48,61 @@ function getPublishedVersion(packageName, version) {
 }
 
 function publishPackage(packageDir) {
-  const publishArgs = ['publish', '--access', 'public', '--no-git-checks']
-
-  if (isGitHubActions) {
-    publishArgs.push('--provenance')
-  }
-
   if (isDryRun) {
-    console.log(`[dry-run] pnpm ${publishArgs.join(' ')} (${packageDir})`)
+    if (isGitHubActions) {
+      console.log(`[dry-run] pnpm pack --pack-destination <temp-dir> (${packageDir})`)
+      console.log(`[dry-run] npx --yes npm@11.5.1 publish <tarball> --access public --provenance (${packageDir})`)
+    }
+    else {
+      console.log(`[dry-run] pnpm publish --access public --no-git-checks (${packageDir})`)
+    }
+
     return { status: 'dry-run' }
   }
 
+  let tempPackDir
+
   try {
-    const output = execFileSync('pnpm', publishArgs, {
-      cwd: packageDir,
-      encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'pipe'],
-    })
+    let output = ''
+
+    if (isGitHubActions) {
+      tempPackDir = mkdtempSync(path.join(os.tmpdir(), 'preferred-markdown-stream-'))
+      const packOutput = execFileSync('pnpm', ['pack', '--pack-destination', tempPackDir], {
+        cwd: packageDir,
+        encoding: 'utf8',
+        stdio: ['ignore', 'pipe', 'pipe'],
+      }).trim()
+
+      if (packOutput) {
+        process.stdout.write(`${packOutput}\n`)
+      }
+
+      const tarballOutputLine = packOutput
+        .split('\n')
+        .findLast(line => line.trim().endsWith('.tgz'))
+        ?.trim()
+
+      if (!tarballOutputLine) {
+        throw new Error(`Unable to determine packed tarball for ${packageDir}`)
+      }
+
+      const tarballPath = path.isAbsolute(tarballOutputLine)
+        ? tarballOutputLine
+        : path.join(tempPackDir, tarballOutputLine)
+      output = execFileSync('npx', ['--yes', 'npm@11.5.1', 'publish', tarballPath, '--access', 'public', '--provenance'], {
+        cwd: packageDir,
+        encoding: 'utf8',
+        stdio: ['ignore', 'pipe', 'pipe'],
+      })
+    }
+    else {
+      output = execFileSync('pnpm', ['publish', '--access', 'public', '--no-git-checks'], {
+        cwd: packageDir,
+        encoding: 'utf8',
+        stdio: ['ignore', 'pipe', 'pipe'],
+      })
+    }
+
     if (output) {
       process.stdout.write(output)
     }
@@ -98,6 +137,11 @@ function publishPackage(packageDir) {
     }
 
     throw error
+  }
+  finally {
+    if (tempPackDir) {
+      rmSync(tempPackDir, { force: true, recursive: true })
+    }
   }
 }
 
