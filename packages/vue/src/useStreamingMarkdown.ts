@@ -1,23 +1,15 @@
 import type { Ref, VNode } from 'vue'
 import { splitContent } from '@preferred-markdown-stream/core'
-import {
-  computedWithControl,
-  debouncedWatch,
-} from '@vueuse/core'
+import { computedWithControl } from '@vueuse/core'
 import { computed, defineComponent, ref, watch } from 'vue'
-import { addFadeInToVNodes } from './fadeIn'
+import { addFadeInToVNodes } from './fadeIn.js'
 import {
   isKatexLoaded,
   isShikiLoaded,
   loadKatex,
   loadShiki,
   md,
-} from './runtime'
-
-interface TriggerableComputed<T> {
-  value: T
-  trigger: () => void
-}
+} from './runtime.js'
 
 function ensureMarkdownCapabilities(content: string) {
   if (content.includes('```') || content.includes('`')) {
@@ -84,23 +76,6 @@ export function createStreamingMarkdownVNodes(
   }
 }
 
-export function createReasoningMarkdownVNodes(
-  reasoning: Readonly<Ref<string | undefined>>,
-  options?: {
-    returnEmptyWhenBlank?: boolean
-  },
-) {
-  return computedWithControl([reasoning], () => {
-    const reasoningContent = reasoning.value ?? ''
-
-    if (options?.returnEmptyWhenBlank && !reasoningContent) {
-      return []
-    }
-
-    return renderMarkdown(reasoningContent)
-  })
-}
-
 export function createVNodeRendererComponent(vnodes: { value: VNode[] }) {
   return defineComponent({
     setup() {
@@ -108,18 +83,4 @@ export function createVNodeRendererComponent(vnodes: { value: VNode[] }) {
       return () => vnodes.value
     },
   })
-}
-
-export function bindStreamingMarkdownTrigger(
-  vnodes: TriggerableComputed<VNode[]>,
-  source: Readonly<Ref<unknown>>,
-  debounce = 300,
-) {
-  debouncedWatch(
-    [source],
-    vnodes.trigger.bind(vnodes),
-    {
-      debounce,
-    },
-  )
 }

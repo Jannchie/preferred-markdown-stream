@@ -9,18 +9,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./runtime": {
-      "types": "./dist/runtime.d.ts",
-      "import": "./dist/runtime.js"
-    },
-    "./fade-in": {
-      "types": "./dist/fadeIn.d.ts",
-      "import": "./dist/fadeIn.js"
-    },
-    "./use-streaming-markdown": {
-      "types": "./dist/useStreamingMarkdown.d.ts",
-      "import": "./dist/useStreamingMarkdown.js"
-    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.js",
@@ -30,6 +18,9 @@
     "README.md",
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -p ./tsconfig.build.json",
     "test": "vitest run --config ./vitest.config.ts",

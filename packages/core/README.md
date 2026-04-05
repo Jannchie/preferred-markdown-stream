@@ -2,6 +2,18 @@
 
 Framework-agnostic utilities for streaming Markdown UIs.
 
+## Installation
+
+```bash
+pnpm add @preferred-markdown-stream/core
+```
+
+## Usage
+
+```ts
+import { splitContent } from '@preferred-markdown-stream/core'
+```
+
 ## Public API
 
 - `splitContent(message)`

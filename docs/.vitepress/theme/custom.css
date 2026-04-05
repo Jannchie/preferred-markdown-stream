@@ -1,0 +1,30 @@
+:root {
+  --vp-c-brand-1: #2563eb;
+  --vp-c-brand-2: #1d4ed8;
+  --vp-c-brand-3: #1e40af;
+  --vp-c-brand-soft: rgba(37, 99, 235, 0.12);
+  --vp-home-hero-name-color: #0f172a;
+  --vp-home-hero-name-background: none;
+  --vp-home-hero-image-background-image: none;
+  --vp-home-hero-image-filter: none;
+}
+
+.VPHomeHero .image,
+.VPHomeHero .image-bg,
+.VPHomeHero .image-src {
+  display: none;
+}
+
+.VPFeature {
+  border: 1px solid var(--vp-c-divider);
+  box-shadow: none;
+}
+
+.VPButton.brand {
+  box-shadow: none;
+}
+
+.vp-doc table {
+  display: table;
+  width: 100%;
+}

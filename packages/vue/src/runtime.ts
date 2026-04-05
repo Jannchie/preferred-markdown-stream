@@ -1,7 +1,7 @@
 import markdownit from 'markdown-it'
 import todo from 'markdown-it-todo'
 import { ref } from 'vue'
-import VNodePlugin from './render'
+import VNodePlugin from './render.js'
 
 export const md = markdownit({
   linkify: true,
