@@ -1,3 +1,11 @@
+## v0.1.2
+
+[v0.1.1...v0.1.2](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.1...v0.1.2)
+
+### :construction_worker: CI
+
+- **.github-workflows**: remove explicit pnpm version from setup step - By [Jannchie](mailto:jannchie@gmail.com) in [01b2272](https://github.com/Jannchie/preferred-markdown-stream/commit/01b2272)
+
 ## v0.1.1
 
 [v0.1.0...v0.1.1](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.0...v0.1.1)

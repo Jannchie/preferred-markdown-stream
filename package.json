@@ -1,5 +1,6 @@
 {
   "name": "preferred-markdown-stream",
+  "version": "0.1.2",
   "private": true,
   "packageManager": "pnpm@10.0.0",
   "scripts": {
