@@ -1,3 +1,15 @@
+## v0.2.1
+
+[v0.2.0...v0.2.1](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.2.0...v0.2.1)
+
+### :art: Refactors
+
+- **packages**: refactor imports and asset copy scripts, add playground theme initialization - By [Jannchie](mailto:jannchie@gmail.com) in [96143c4](https://github.com/Jannchie/preferred-markdown-stream/commit/96143c4)
+
+### :wrench: Chores
+
+- **packages/playground**: remove local core workspace link from lockfile - By [Jannchie](mailto:jannchie@gmail.com) in [e1df489](https://github.com/Jannchie/preferred-markdown-stream/commit/e1df489)
+
 ## v0.2.0
 
 [v0.1.9...v0.2.0](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.9...v0.2.0)
