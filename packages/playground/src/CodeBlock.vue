@@ -26,7 +26,11 @@ function copyCode() {
   <div class="code-block-wrapper">
     <div class="code-block-toolbar">
       <span class="code-language">{{ language || 'text' }}</span>
-      <button class="copy-button" @click="copyCode">
+      <button
+        type="button"
+        class="copy-button"
+        @click="copyCode"
+      >
         {{ copied ? 'Copied' : 'Copy' }}
       </button>
     </div>

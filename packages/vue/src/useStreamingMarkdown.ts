@@ -1,10 +1,10 @@
 import type { Ref, VNode } from 'vue'
-import { computed, defineComponent, ref, watch } from 'vue'
+import { splitContent } from '@preferred-markdown-stream/core'
 import {
   computedWithControl,
   debouncedWatch,
 } from '@vueuse/core'
-import { splitContent } from '@preferred-markdown-stream/core'
+import { computed, defineComponent, ref, watch } from 'vue'
 import { addFadeInToVNodes } from './fadeIn'
 import {
   isKatexLoaded,
@@ -55,7 +55,8 @@ export function createStreamingMarkdownVNodes(
     }
     if (val) {
       debouncedLoading.value = true
-    } else {
+    }
+    else {
       offTimer = setTimeout(() => {
         debouncedLoading.value = false
       }, 1000)
@@ -103,6 +104,7 @@ export function createReasoningMarkdownVNodes(
 export function createVNodeRendererComponent(vnodes: { value: VNode[] }) {
   return defineComponent({
     setup() {
+      // eslint-disable-next-line unicorn/consistent-function-scoping
       return () => vnodes.value
     },
   })
@@ -115,9 +117,7 @@ export function bindStreamingMarkdownTrigger(
 ) {
   debouncedWatch(
     [source],
-    () => {
-      vnodes.trigger()
-    },
+    vnodes.trigger.bind(vnodes),
     {
       debounce,
     },

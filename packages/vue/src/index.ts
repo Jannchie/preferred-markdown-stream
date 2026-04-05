@@ -2,15 +2,15 @@ export {
   addFadeInToVNodes,
 } from './fadeIn'
 export {
+  setCodeBlockComponent,
+} from './render'
+export {
   isKatexLoaded,
   isShikiLoaded,
   loadKatex,
   loadShiki,
   md,
 } from './runtime'
-export {
-  setCodeBlockComponent,
-} from './render'
 export {
   bindStreamingMarkdownTrigger,
   createReasoningMarkdownVNodes,

@@ -4,6 +4,9 @@ const SENTENCE_END_REGEXP = /[.?!。？！；，、,;`\n]$/
 const ORDERED_LIST_PREFIX_REGEXP = /^\d+\./
 const TABLE_ROW_REGEXP = /^\|.+\|$/
 const TABLE_SEPARATOR_REGEXP = /^\|[\s:|-]+\|$/
+const FENCE_DELIMITER_REGEXP = /^(`{3,}|~{3,})/gm
+const INLINE_CODE_BACKTICK_REGEXP = /(?<!`)`(?!`)/g
+const COMPLETE_INLINE_MARKUP_REGEXP = /^!?\[[^\]]*\]\([^)]*\)/
 
 export interface StreamingTextNode {
   children?: string | StreamingTextNode[] | unknown
@@ -29,7 +32,7 @@ function stripUnclosedBlock(content: string): string {
       count++
     }
     if (count % 2 === 1) {
-      return content.slice(0, lastDoubleDollar).trimEnd() + '\n'
+      return `${content.slice(0, lastDoubleDollar).trimEnd()}\n`
     }
   }
 
@@ -63,13 +66,13 @@ function stripIncompleteInlineMarkup(content: string): string {
 
   // Check whether the `[` is inside a fenced code block — if so, skip.
   const beforeBracket = content.slice(0, i)
-  const fencesBefore = (beforeBracket.match(/^(`{3,}|~{3,})/gm) || []).length
+  const fencesBefore = beforeBracket.match(FENCE_DELIMITER_REGEXP)?.length ?? 0
   if (fencesBefore % 2 === 1) {
     return content // inside a code fence, leave alone
   }
 
   // Also skip if it's inside an inline code span (backticks).
-  const backticksBefore = (beforeBracket.match(/(?<!`)`(?!`)/g) || []).length
+  const backticksBefore = beforeBracket.match(INLINE_CODE_BACKTICK_REGEXP)?.length ?? 0
   if (backticksBefore % 2 === 1) {
     return content // inside inline code
   }
@@ -77,7 +80,7 @@ function stripIncompleteInlineMarkup(content: string): string {
   const tail = content.slice(i)
 
   // Complete link/image: [text](url) — possibly followed by more text
-  if (/^\!?\[[^\]]*\]\([^)]*\)/.test(tail)) {
+  if (COMPLETE_INLINE_MARKUP_REGEXP.test(tail)) {
     return content // fully formed, nothing to strip
   }
 
@@ -99,17 +102,18 @@ function stripUnclosedInlineCode(content: string): string {
 
   // First, remove fenced code block regions so they don't interfere.
   // We only need to check the *last line fragment* outside fences.
-  const fenceRegexp = /^(`{3,}|~{3,})/gm
   let inFence = false
   let fenceChar: string | null = null
   let lastFenceEnd = 0
   let match: RegExpExecArray | null = null
+  FENCE_DELIMITER_REGEXP.lastIndex = 0
   // eslint-disable-next-line no-cond-assign
-  while ((match = fenceRegexp.exec(content)) !== null) {
+  while ((match = FENCE_DELIMITER_REGEXP.exec(content)) !== null) {
     if (!inFence) {
       inFence = true
       fenceChar = match[1][0]
-    } else if (match[1][0] === fenceChar) {
+    }
+    else if (match[1][0] === fenceChar) {
       inFence = false
       fenceChar = null
       lastFenceEnd = match.index + match[0].length
@@ -128,11 +132,13 @@ function stripUnclosedInlineCode(content: string): string {
   // A simple approach: split by backtick and check odd/even.
   let count = 0
   let lastBacktickPos = -1
-  for (let j = 0; j < region.length; j++) {
-    if (region[j] === '`') {
+  let index = 0
+  for (const character of region) {
+    if (character === '`') {
       count++
-      lastBacktickPos = j
+      lastBacktickPos = index
     }
+    index++
   }
 
   if (count % 2 === 1 && lastBacktickPos !== -1) {
@@ -165,7 +171,8 @@ function stripIncompleteTable(content: string): string {
     }
     if (TABLE_ROW_REGEXP.test(trimmed)) {
       tableStart = i
-    } else {
+    }
+    else {
       break
     }
   }

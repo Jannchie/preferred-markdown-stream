@@ -1,5 +1,5 @@
-import { h } from 'vue'
 import { describe, expect, it } from 'vitest'
+import { h } from 'vue'
 import { addFadeInToVNodes } from '../src/index'
 
 describe('@preferred-markdown-stream/vue', () => {

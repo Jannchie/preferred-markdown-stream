@@ -1,17 +1,9 @@
 {
   "name": "@preferred-markdown-stream/core",
-  "private": false,
-  "version": "0.1.0",
   "type": "module",
+  "version": "0.1.0",
+  "private": false,
   "sideEffects": false,
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "scripts": {
-    "build": "tsc -p ./tsconfig.build.json",
-    "test": "vitest run --config ./vitest.config.ts",
-    "typecheck": "tsc -p ./tsconfig.json"
-  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -23,10 +15,18 @@
     },
     "./package.json": "./package.json"
   },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
-    "dist",
-    "README.md"
+    "README.md",
+    "dist"
   ],
+  "scripts": {
+    "build": "tsc -p ./tsconfig.build.json",
+    "test": "vitest run --config ./vitest.config.ts",
+    "typecheck": "tsc -p ./tsconfig.json"
+  },
   "devDependencies": {
     "typescript": "^6.0.2",
     "vitest": "^4.1.1"

@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { splitContent } from '@preferred-markdown-stream/core'
 import {
   createStreamingMarkdownVNodes,
   createVNodeRendererComponent,
 } from '@preferred-markdown-stream/vue'
+import { computed, onBeforeUnmount, ref, watch } from 'vue'
 
 type ChunkMode = 'character' | 'word' | 'line'
+const WORD_CHUNK_REGEXP = /\S+|\s+/g
+const LINE_BREAK_SPLIT_REGEXP = /(?<=\n)/
 
 const defaultMarkdown = `# Streaming Markdown Kitchen Sink
 
@@ -140,10 +142,10 @@ const chunkMode = ref<ChunkMode>('word')
 const intervalMs = ref(35)
 const cursor = ref(0)
 const diagnosticsOpen = ref(false)
-let playbackTimer: number | undefined
+let playbackTimer: ReturnType<typeof globalThis.setTimeout> | undefined
 
-const { contentFinal, contentVNodes, formattedContent } =
-  createStreamingMarkdownVNodes(streamedMarkdown, loading)
+const { contentFinal, contentVNodes, formattedContent }
+  = createStreamingMarkdownVNodes(streamedMarkdown, loading)
 const MarkdownPreview = createVNodeRendererComponent(contentVNodes)
 
 const chunks = computed(() =>
@@ -175,26 +177,26 @@ function createChunks(source: string, mode: ChunkMode): string[] {
   }
 
   if (mode === 'character') {
-    return Array.from(source)
+    return [...source]
   }
 
   if (mode === 'word') {
-    return source.match(/\S+|\s+/g) ?? []
+    return source.match(WORD_CHUNK_REGEXP) ?? []
   }
 
-  return source.split(/(?<=\n)/g)
+  return source.split(LINE_BREAK_SPLIT_REGEXP)
 }
 
 function clearPlaybackTimer() {
   if (playbackTimer !== undefined) {
-    window.clearTimeout(playbackTimer)
+    globalThis.clearTimeout(playbackTimer)
     playbackTimer = undefined
   }
 }
 
 function queueNextStep() {
   clearPlaybackTimer()
-  playbackTimer = window.setTimeout(() => {
+  playbackTimer = globalThis.setTimeout(() => {
     stepPlayback()
   }, intervalMs.value)
 }
@@ -262,10 +264,27 @@ function finishPlayback() {
     <header class="header">
       <div class="header-brand">
         <div class="brand-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
             <polyline points="4 7 4 4 20 4 20 7" />
-            <line x1="9" y1="20" x2="15" y2="20" />
-            <line x1="12" y1="4" x2="12" y2="20" />
+            <line
+              x1="9"
+              y1="20"
+              x2="15"
+              y2="20"
+            />
+            <line
+              x1="12"
+              y1="4"
+              x2="12"
+              y2="20"
+            />
           </svg>
         </div>
         <div class="brand-text">
@@ -274,7 +293,10 @@ function finishPlayback() {
         </div>
       </div>
       <div class="header-status">
-        <div class="status-pill" :data-active="isPlaying">
+        <div
+          class="status-pill"
+          :data-active="isPlaying"
+        >
           <span class="status-dot" />
           {{ isPlaying ? 'Streaming' : 'Idle' }}
         </div>
@@ -309,6 +331,7 @@ function finishPlayback() {
               <button
                 v-for="mode in (['character', 'word', 'line'] as ChunkMode[])"
                 :key="mode"
+                type="button"
                 class="chip"
                 :data-active="chunkMode === mode"
                 @click="chunkMode = mode"
@@ -339,12 +362,14 @@ function finishPlayback() {
 
           <div class="playback-row">
             <button
+              type="button"
               class="btn btn-accent"
               @click="startPlayback({ restart: true })"
             >
               Restart
             </button>
             <button
+              type="button"
               class="btn"
               :disabled="isPlaying"
               @click="startPlayback()"
@@ -352,6 +377,7 @@ function finishPlayback() {
               Play
             </button>
             <button
+              type="button"
               class="btn"
               :disabled="!isPlaying"
               @click="pausePlayback"
@@ -359,12 +385,14 @@ function finishPlayback() {
               Pause
             </button>
             <button
+              type="button"
               class="btn"
               @click="finishPlayback"
             >
               Reveal
             </button>
             <button
+              type="button"
               class="btn btn-full"
               @click="resetPlayback"
             >
@@ -373,7 +401,10 @@ function finishPlayback() {
           </div>
 
           <div class="progress-bar">
-            <div class="progress-fill" :style="{ width: `${progress * 100}%` }" />
+            <div
+              class="progress-fill"
+              :style="{ width: `${progress * 100}%` }"
+            />
           </div>
           <div class="progress-meta">
             <span>{{ completionLabel }} chunks</span>
@@ -383,7 +414,10 @@ function finishPlayback() {
       </aside>
 
       <!-- Preview -->
-      <section class="preview-panel" :data-streaming="isPlaying">
+      <section
+        class="preview-panel"
+        :data-streaming="isPlaying"
+      >
         <div class="preview-header">
           <span class="preview-title">
             Rendered Preview
@@ -401,36 +435,60 @@ function finishPlayback() {
     <!-- Diagnostics -->
     <section class="diagnostics-section">
       <button
+        type="button"
         class="diagnostics-toggle"
         :data-collapsed="!diagnosticsOpen"
         @click="diagnosticsOpen = !diagnosticsOpen"
       >
-        <span class="toggle-chevron" :data-open="diagnosticsOpen">&#9660;</span>
+        <span
+          class="toggle-chevron"
+          :data-open="diagnosticsOpen"
+        >&#9660;</span>
         Diagnostics
       </button>
 
-      <div v-show="diagnosticsOpen" class="diagnostics-grid" :data-open="diagnosticsOpen">
+      <div
+        v-show="diagnosticsOpen"
+        class="diagnostics-grid"
+        :data-open="diagnosticsOpen"
+      >
         <article class="diagnostic-card">
-          <div class="diagnostic-label">Raw stream buffer</div>
-          <p class="diagnostic-desc">The exact text that has arrived so far.</p>
+          <div class="diagnostic-label">
+            Raw stream buffer
+          </div>
+          <p class="diagnostic-desc">
+            The exact text that has arrived so far.
+          </p>
           <pre class="diagnostic-pre">{{ streamedMarkdown }}</pre>
         </article>
 
         <article class="diagnostic-card">
-          <div class="diagnostic-label">splitContent(buffer)</div>
-          <p class="diagnostic-desc">After incomplete trailing fragments are removed.</p>
+          <div class="diagnostic-label">
+            splitContent(buffer)
+          </div>
+          <p class="diagnostic-desc">
+            After incomplete trailing fragments are removed.
+          </p>
           <pre class="diagnostic-pre">{{ streamedPreview }}</pre>
         </article>
 
         <article class="diagnostic-card">
-          <div class="diagnostic-label">contentFinal</div>
-          <p class="diagnostic-desc">The value actually rendered by the Vue helper.</p>
+          <div class="diagnostic-label">
+            contentFinal
+          </div>
+          <p class="diagnostic-desc">
+            The value actually rendered by the Vue helper.
+          </p>
           <pre class="diagnostic-pre">{{ contentFinal }}</pre>
         </article>
 
         <article class="diagnostic-card">
-          <div class="diagnostic-label">formattedContent</div>
-          <p class="diagnostic-desc">The helper output before the final loading switch.</p>
+          <div class="diagnostic-label">
+            formattedContent
+          </div>
+          <p class="diagnostic-desc">
+            The helper output before the final loading switch.
+          </p>
           <pre class="diagnostic-pre">{{ formattedContent }}</pre>
         </article>
       </div>
