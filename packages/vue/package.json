@@ -1,0 +1,56 @@
+{
+  "name": "@preferred-markdown-stream/vue",
+  "private": false,
+  "version": "0.0.0",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p ./tsconfig.build.json",
+    "test": "vitest run --config ./vitest.config.ts",
+    "typecheck": "tsc -p ./tsconfig.json"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./runtime": {
+      "types": "./dist/runtime.d.ts",
+      "import": "./dist/runtime.js"
+    },
+    "./fade-in": {
+      "types": "./dist/fadeIn.d.ts",
+      "import": "./dist/fadeIn.js"
+    },
+    "./use-streaming-markdown": {
+      "types": "./dist/useStreamingMarkdown.d.ts",
+      "import": "./dist/useStreamingMarkdown.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "dependencies": {
+    "@shikijs/markdown-it": "^4.0.2",
+    "@vueuse/core": "^14.2.1",
+    "katex": "^0.16.42",
+    "markdown-it": "^14.1.1",
+    "markdown-it-texmath": "^1.0.0",
+    "markdown-it-todo": "^1.0.5",
+    "@preferred-markdown-stream/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.1",
+    "vue": "^3.5.30"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  }
+}
