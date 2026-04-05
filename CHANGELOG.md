@@ -1,3 +1,11 @@
+## v0.1.4
+
+[v0.1.3...v0.1.4](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.3...v0.1.4)
+
+### :wrench: Chores
+
+- **release**: use npm@11.5.1 via npx and pack/publish tarball in GH Actions - By [Jannchie](mailto:jannchie@gmail.com) in [fb1e708](https://github.com/Jannchie/preferred-markdown-stream/commit/fb1e708)
+
 ## v0.1.3
 
 [v0.1.2...v0.1.3](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.2...v0.1.3)
