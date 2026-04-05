@@ -41,9 +41,6 @@ importers:
 
   packages/playground:
     dependencies:
-      '@preferred-markdown-stream/core':
-        specifier: workspace:*
-        version: link:../core
       '@preferred-markdown-stream/vue':
         specifier: workspace:*
         version: link:../vue
