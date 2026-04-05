@@ -11,12 +11,21 @@ importers:
       '@jannchie/eslint-config':
         specifier: ^3.7.6
         version: 3.7.6(@typescript-eslint/rule-tester@8.58.0(eslint@10.2.0)(typescript@6.0.2))(@typescript-eslint/typescript-estree@8.58.0(typescript@6.0.2))(@typescript-eslint/utils@8.58.0(eslint@10.2.0)(typescript@6.0.2))(@vue/compiler-sfc@3.5.32)(eslint@10.2.0)(typescript@6.0.2)(vitest@4.1.2(vite@5.4.21(lightningcss@1.32.0)))
+      '@typescript-eslint/parser':
+        specifier: ^8.58.0
+        version: 8.58.0(eslint@10.2.0)(typescript@6.0.2)
       eslint:
         specifier: ^10.2.0
         version: 10.2.0
+      eslint-plugin-vue:
+        specifier: ^10.8.0
+        version: 10.8.0(@stylistic/eslint-plugin@5.10.0(eslint@10.2.0))(@typescript-eslint/parser@8.58.0(eslint@10.2.0)(typescript@6.0.2))(eslint@10.2.0)(vue-eslint-parser@10.4.0(eslint@10.2.0))
       vitepress:
         specifier: ^1.6.4
         version: 1.6.4(@algolia/client-search@5.50.1)(change-case@5.4.4)(lightningcss@1.32.0)(postcss@8.5.8)(search-insights@2.17.3)(typescript@6.0.2)
+      vue-eslint-parser:
+        specifier: ^10.4.0
+        version: 10.4.0(eslint@10.2.0)
 
   packages/core:
     devDependencies:
