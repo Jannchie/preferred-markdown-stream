@@ -1,3 +1,11 @@
+## v0.1.6
+
+[v0.1.5...v0.1.6](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.5...v0.1.6)
+
+### :wrench: Chores
+
+- **playground**: add node type to tsconfig types - By [Jannchie](mailto:jannchie@gmail.com) in [5a91ef2](https://github.com/Jannchie/preferred-markdown-stream/commit/5a91ef2)
+
 ## v0.1.5
 
 [v0.1.4...v0.1.5](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.1.4...v0.1.5)
