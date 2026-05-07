@@ -24,11 +24,11 @@
     "typecheck": "pnpm -r typecheck"
   },
   "devDependencies": {
-    "@jannchie/eslint-config": "^3.7.6",
-    "@types/node": "^22.18.6",
-    "@typescript-eslint/parser": "^8.58.0",
-    "eslint": "^10.2.0",
-    "eslint-plugin-vue": "^10.8.0",
+    "@jannchie/eslint-config": "^3.7.9",
+    "@types/node": "^25.6.0",
+    "@typescript-eslint/parser": "^8.59.2",
+    "eslint": "^10.3.0",
+    "eslint-plugin-vue": "^10.9.1",
     "vitepress": "^1.6.4",
     "vue-eslint-parser": "^10.4.0"
   }

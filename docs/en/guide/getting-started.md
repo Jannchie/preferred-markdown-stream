@@ -83,7 +83,7 @@ The core package owns the streaming-safe text splitting and generic fade-in tree
 
 ## Recommended Reading
 
-- [Core Package](/guide/core)
-- [Vue Package](/guide/vue)
-- [Core API](/api/core)
-- [Vue API](/api/vue)
+- [Core Package](/en/guide/core)
+- [Vue Package](/en/guide/vue)
+- [Core API](/en/api/core)
+- [Vue API](/en/api/vue)

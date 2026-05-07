@@ -1,9 +1,21 @@
+export type {
+  LanguageRegistration,
+  MarkdownItShikiOptions,
+  ThemeRegistrationRaw,
+} from './runtime.js'
 export {
   addFadeInToVNodes,
 } from './fadeIn.js'
 export {
   setCodeBlockComponent,
 } from './render.js'
+export {
+  configureShiki,
+  isKatexLoaded,
+  isShikiLoaded,
+  loadKatex,
+  loadShiki,
+} from './runtime.js'
 export {
   createStreamingMarkdownVNodes,
   createVNodeRendererComponent,
