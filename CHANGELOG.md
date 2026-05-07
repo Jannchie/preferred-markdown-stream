@@ -1,3 +1,15 @@
+## v0.3.0
+
+[v0.2.1...v0.3.0](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.2.1...v0.3.0)
+
+### :sparkles: Features
+
+- **docs**: add multilingual docs && expose shiki config - By [Jannchie](mailto:jannchie@gmail.com) in [a226546](https://github.com/Jannchie/preferred-markdown-stream/commit/a226546)
+
+### :memo: Documentation
+
+- improve docs and READMEs with usage notes and CLI scripts - By [Jannchie](mailto:jannchie@gmail.com) in [acb68a3](https://github.com/Jannchie/preferred-markdown-stream/commit/acb68a3)
+
 ## v0.2.1
 
 [v0.2.0...v0.2.1](https://github.com/Jannchie/preferred-markdown-stream/compare/v0.2.0...v0.2.1)
